@@ -1,6 +1,7 @@
 #include <ctime>
 #include <iostream>
 #include <stdexcept>
+#include <SDL2/SDL.h>
 
 #include "Sprites.h"
 #include "Display.h"
@@ -22,6 +23,8 @@ using namespace ping;
  * @author Ken Baclawski
  */
 
+ void handleKeyIn(SDL_Event e);
+
 /**
  * Main program for the bouncing image display.
  * @return The status code. Status code 0 means
@@ -32,41 +35,57 @@ int main() {
   try {
 
     // Initialize the graphical display
-
     Display display;
 
     // Add some images to the display
-
     display.addImage("graphics/image1.bmp");
-    display.addImage("graphics/image2.bmp");
+    display.addImage("graphics/image3.bmp");
 
     // Construct the sprite collection
 
     Sprites sprites(display.getImageCount());
 
     // Run until quit.
+		bool quit = false;
+		SDL_Event e;
 
-    for (;;) {
+    // Run until quit.
+		while (!quit)
+		{
+			while (SDL_PollEvent(&e) != 0)
+			{
+				if (e.type == SDL_QUIT) {
+					quit = true;
+				} else if (e.type == SDL_KEYDOWN) {
+					handleKeyIn(e);
+				}
 
-      // Check for relevant events.
+			}
 
-      switch (display.checkForRelevantEvent()) {
-      case RelevantEvent::NONE:
-        break;
-      case RelevantEvent::QUIT:
-        return 0;
-      default:
-	cerr << "Unexpected event" << endl;
-	return 1;
-      }
-
-      // Move the sprites and draw the new ones.
-
-      sprites.evolve();
+			sprites.evolve();
       display.refresh(sprites);
-    }
+		}
+
   } catch (const exception& e) {
     cerr << e.what() << endl;
     return 1;
   }
+}
+
+void handleKeyIn(SDL_Event e)
+{
+	switch (e.key.keysym.sym)
+	{
+		case SDLK_UP:
+			cout << "UP BUTTON PRESSED" << endl;
+			break;
+		case SDLK_DOWN:
+			cout << "DOWN BUTTON PRESSED" << endl;
+			break;
+		case SDLK_LEFT:
+			cout << "LEFT BUTTON PRESSED; QUITTING" << endl;
+			break;
+		default:
+			break;
+	}
 }
