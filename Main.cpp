@@ -39,7 +39,6 @@ int main() {
 
     // Add some images to the display
     display.addImage("graphics/image1.bmp");
-    display.addImage("graphics/image3.bmp");
 
     // Construct the sprite collection
 
@@ -56,6 +55,7 @@ int main() {
 			{
 				if (e.type == SDL_QUIT) {
 					quit = true;
+					display.close();
 				} else if (e.type == SDL_KEYDOWN) {
 					handleKeyIn(e);
 				}
@@ -83,7 +83,10 @@ void handleKeyIn(SDL_Event e)
 			cout << "DOWN BUTTON PRESSED" << endl;
 			break;
 		case SDLK_LEFT:
-			cout << "LEFT BUTTON PRESSED; QUITTING" << endl;
+			cout << "LEFT BUTTON PRESSED" << endl;
+			break;
+		case SDLK_RIGHT:
+			cout << "RIGHT BUTTON PRESSED" << endl;
 			break;
 		default:
 			break;
