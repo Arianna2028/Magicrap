@@ -1,56 +1,72 @@
-/*This source code copyrighted by Lazy Foo' Productions (2004-2015)
-and may not be redistributed without written permission.*/
+#include <ctime>
+#include <iostream>
+#include <stdexcept>
 
-//Using SDL and standard IO
-#include <SDL.h>
-#include <stdio.h>
+#include "Sprites.h"
+#include "Display.h"
 
-//Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+using namespace std;
+using namespace ping;
 
-int main( int argc, char* args[] )
-{
-	//The window we'll be rendering to
-	SDL_Window* window = NULL;
+/**
+ * @namespace ping The ping package displays a box
+ * full of bouncing and rotating images.  The
+ * images have random sizes.  They are initially
+ * placed randomly in the box with random
+ * velocities.  The images then evolve by bouncing
+ * elastically against each other and the walls.
+ * The mass of an image is its area.  The elastic
+ * collisions preserve both linear and angular
+ * momentum so that the energy is conserved.
+ *
+ * @author Ken Baclawski
+ */
 
-	//The surface contained by the window
-	SDL_Surface* screenSurface = NULL;
+/**
+ * Main program for the bouncing image display.
+ * @return The status code. Status code 0 means
+ * the program succeeds, and nonzero status code
+ * means the program failed.
+ */
+int main() {
+  try {
 
-	//Initialize SDL
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-	{
-		printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
-	}
-	else
-	{
-		//Create window
-		window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
-		if( window == NULL )
-		{
-			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
-		}
-		else
-		{
-			//Get window surface
-			screenSurface = SDL_GetWindowSurface( window );
+    // Initialize the graphical display
 
-			//Fill the surface white
-			SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) );
+    Display display;
 
-			//Update the surface
-			SDL_UpdateWindowSurface( window );
+    // Add some images to the display
 
-			//Wait two seconds
-			SDL_Delay( 2000 );
-		}
-	}
+    display.addImage("graphics/image1.bmp");
+    display.addImage("graphics/image2.bmp");
 
-	//Destroy window
-	SDL_DestroyWindow( window );
+    // Construct the sprite collection
 
-	//Quit SDL subsystems
-	SDL_Quit();
+    Sprites sprites(display.getImageCount());
 
-	return 0;
+    // Run until quit.
+
+    for (;;) {
+
+      // Check for relevant events.
+
+      switch (display.checkForRelevantEvent()) {
+      case RelevantEvent::NONE:
+        break;
+      case RelevantEvent::QUIT:
+        return 0;
+      default:
+	cerr << "Unexpected event" << endl;
+	return 1;
+      }
+
+      // Move the sprites and draw the new ones.
+
+      sprites.evolve();
+      display.refresh(sprites);
+    }
+  } catch (const exception& e) {
+    cerr << e.what() << endl;
+    return 1;
+  }
 }

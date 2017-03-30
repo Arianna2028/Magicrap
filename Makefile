@@ -1,5 +1,11 @@
-OBJS = Main.cpp
-OBJ_NAME = 01_hello_SDL
+OBJS = $(wildcard *.cpp)  # Files to compile
+CC = g++  # Compiler
+COMPILER_FLAGS = -w -std=c++11 # Additional compiler options
+LINKER_FLAGS = -lSDL2  # Libraries to link against
+OBJ_NAME = main  # Name of the executable
 
 all: $(OBJS)
-	g++ $(OBJS) -w -lSDL2 -o $(OBJ_NAME)
+	g++ $(OBJS) $(COMPILER_FLAGS) -lSDL2 -o $(OBJ_NAME)
+
+clean:
+	rm -f main
