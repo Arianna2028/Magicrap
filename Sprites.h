@@ -4,7 +4,7 @@
 #include <vector>
 #include "Sprite.h"
 
-namespace ping {
+namespace project {
 
 /**
  * A collection of images.  The behavior includes
@@ -15,22 +15,22 @@ namespace ping {
 class Sprites {
 public:
   /**
-   * Construct a collection of random sprites. 
+   * Construct a collection of random sprites.
    * @throw domain_error if the arguments are not valid.
    */
   Sprites(/** The number of images for sprites. */
           unsigned int imageCount,
           /** The required number of sprites in the collection. */
           unsigned int spriteCount = 20,
-          /** The minimum diameter of a sprite. */ 
+          /** The minimum diameter of a sprite. */
           double minDiameter = 30,
-          /** The maximum diameter of a sprite. */ 
+          /** The maximum diameter of a sprite. */
           double maxDiameter = 50,
-          /** The width of the screen. */ 
+          /** The width of the screen. */
           int width = 640,
-          /** The height of the screen. */ 
+          /** The height of the screen. */
           int height = 480);
-    
+
   /**
    * Evolve a collection of sprites.
    */

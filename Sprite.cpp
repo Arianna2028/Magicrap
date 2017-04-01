@@ -6,7 +6,7 @@
 #include "SpriteType.h"
 
 using namespace std;
-using namespace ping;
+using namespace project;
 
 Sprite::Sprite(int width, int height, int startX, int startY, SpriteType type)
 	: width_(width), height_(height), cx_(startX), cy_(startY), type_(type) {}

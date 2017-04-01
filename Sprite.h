@@ -4,7 +4,7 @@
 #include <random>
 #include "SpriteType.h"
 
-namespace ping {
+namespace project {
 
 /**
  * A sprite with a width, height, position, and type

@@ -1,7 +1,7 @@
 #ifndef SPRITE_TYPE_H_
 #define SPRITE_TYPE_H_
 
-namespace ping {
+namespace project {
 
 /**
  * Types of sprites for the platformer game

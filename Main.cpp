@@ -7,23 +7,9 @@
 #include "Display.h"
 
 using namespace std;
-using namespace ping;
+using namespace project;
 
-/**
- * @namespace ping The ping package displays a box
- * full of bouncing and rotating images.  The
- * images have random sizes.  They are initially
- * placed randomly in the box with random
- * velocities.  The images then evolve by bouncing
- * elastically against each other and the walls.
- * The mass of an image is its area.  The elastic
- * collisions preserve both linear and angular
- * momentum so that the energy is conserved.
- *
- * @author Ken Baclawski
- */
-
- void handleKeyIn(SDL_Event e);
+void handleKeyIn(SDL_Event e);
 
 /**
  * Main program for the bouncing image display.

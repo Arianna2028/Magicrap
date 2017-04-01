@@ -3,10 +3,10 @@
 #include "Sprites.h"
 
 using namespace std;
-using namespace ping;
+using namespace project;
 
 Sprites::Sprites(unsigned int imageCount, unsigned int spriteCount,
-		 double minDiameter, double maxDiameter, 
+		 double minDiameter, double maxDiameter,
 		 int width, int height) {
 
   // Validate parameters
@@ -16,14 +16,14 @@ Sprites::Sprites(unsigned int imageCount, unsigned int spriteCount,
   }
   if (imageCount < 1) {
     throw domain_error("There are no images for drawing sprites");
-  }    
+  }
   if (minDiameter < 1.0 || maxDiameter < minDiameter) {
-    throw domain_error("Invalid sprite diameter range: from " + 
-		       to_string(minDiameter) + " to " + 
+    throw domain_error("Invalid sprite diameter range: from " +
+		       to_string(minDiameter) + " to " +
 		       to_string(maxDiameter));
   }
   if (width <= 0 || height <= 0) {
-    throw domain_error("Invalid screen dimension: " + 
+    throw domain_error("Invalid screen dimension: " +
 		       to_string(width) + " x " + to_string(height));
   }
 
@@ -35,8 +35,8 @@ Sprites::Sprites(unsigned int imageCount, unsigned int spriteCount,
   // specifying their locations
 
   for (unsigned int i = 0; i < spriteCount; ++i) {
-    spriteList_.push_back(Sprite(engine_, imageCount, 
-				 minDiameter, maxDiameter, 
+    spriteList_.push_back(Sprite(engine_, imageCount,
+				 minDiameter, maxDiameter,
 				 width, height));
   }
 
@@ -91,24 +91,24 @@ const std::vector<Sprite>& Sprites::getList() const noexcept {
 }
 
 void Sprites::evolve(double delta) noexcept {
-      
+
   // Clear the bounce flags.
-      
+
   for (Sprite& sprite : spriteList_) {
     sprite.clearBounce();
   }
-      
+
   // Bounce the sprites.  Each unordered pair of
   // sprites is bounced if they hit one another.
-      
+
   for (auto iter1 = spriteList_.begin(); iter1 != spriteList_.end(); ++iter1) {
     for (auto iter2 = spriteList_.begin(); iter2 != iter1; ++iter2) {
       iter1->bounce(*iter2);
     }
   }
-      
+
   // Move the sprites.
-  
+
   for (Sprite& sprite : spriteList_) {
     sprite.move(delta);
   }
