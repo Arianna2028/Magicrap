@@ -1,7 +1,7 @@
 #ifndef PING_RELEVANTEVENT_H
 #define PING_RELEVANTEVENT_H
 
-namespace ping {
+namespace project {
 
 /**
  * Relevent Event Enumeration.
