@@ -8,7 +8,7 @@ class SDL_Window;
 class SDL_Renderer;
 class SDL_Texture;
 
-namespace ping {
+namespace project {
 
 /**
  * SDL Display.  The purpose of this class is to
@@ -69,7 +69,7 @@ public:
    * @throw domain_error if the display could not
    * be refreshed.
    */
-  void refresh(/** The sprites to display. */ 
+  void refresh(/** The sprites to display. */
 	       const Sprites& sprites);
 
 private:

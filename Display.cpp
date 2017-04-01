@@ -7,7 +7,7 @@
 #include "Display.h"
 
 using namespace std;
-using namespace ping;
+using namespace project;
 
 Display::Display(int width, int height)
 : width_(width), height_(height) {
