@@ -1,4 +1,3 @@
-#include <ctime>
 #include <iostream>
 #include <stdexcept>
 #include <SDL2/SDL.h>

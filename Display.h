@@ -2,7 +2,6 @@
 #define PING_DISPLAY_H
 
 #include <vector>
-#include "RelevantEvent.h"
 #include "Sprite.h"
 
 class SDL_Window;

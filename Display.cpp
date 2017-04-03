@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "Sprite.h"
-// #include "Sprites.h"
 #include "Display.h"
 
 using namespace std;
@@ -144,7 +143,7 @@ void Display::refresh(vector<Sprite> sprites)
           } else {
             rv = SDL_RenderCopyEx(renderer_, imageTexture, nullptr, &destination, 0, nullptr, SDL_FLIP_NONE);
           }
-          
+
           if  (rv != 0) {
             close();
             throw domain_error(string("Unable to render a sprite due to: ") + SDL_GetError());
