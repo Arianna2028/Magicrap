@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "RelevantEvent.h"
-#include "Game.h"
+#include "Sprite.h"
 
 class SDL_Window;
 class SDL_Renderer;
@@ -29,7 +29,7 @@ public:
    * be created and initialized.
    */
   Display(/** Display width. */ int width = 640,
-	  /** Display height. */ int height = 480);
+	        /** Display height. */ int height = 480);
 
   /**
    * Destruct the graphical display.  This closes
@@ -59,7 +59,7 @@ public:
    * @throw domain_error if the display could not
    * be refreshed.
    */
-  void refresh();
+  void refresh(std::vector<Sprite> sprites);
 
 private:
   /** The display window. */
@@ -76,9 +76,6 @@ private:
 
   /** The height of the window. */
   const int height_ = 0;
-
-  /** The game we want to render */
-  Game game_;
 
   /**
    * Clear the background to opaque white.

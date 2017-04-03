@@ -37,9 +37,9 @@ int Sprite::getImageIndex() const noexcept
   return imageIndex_;
 }
 
-void Sprite::move(double delta) noexcept
+void Sprite::moveHorizontal(double delta) noexcept
 {
-	// TODO: make the sprite move. Might want to break this up into left/right/up
+	cx_ += delta * hv_;
 }
 
 bool Sprite::hits(const Sprite& other) const noexcept
@@ -50,4 +50,14 @@ bool Sprite::hits(const Sprite& other) const noexcept
   double dist2 = dx * dx + dy * dy;
   // return (dist2 < (other.radius_ + radius_) * (other.radius_ + radius_));
 	return false;
+}
+
+bool Sprite::getDirection() const noexcept
+{
+	return hv_ < 0.0;
+}
+
+void Sprite::flip() noexcept
+{
+	hv_ = -(hv_);
 }

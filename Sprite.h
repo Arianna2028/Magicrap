@@ -54,12 +54,10 @@ public:
   int getImageIndex() const noexcept;
 
   /**
-   * Move the sprite to a new position as
-   * determined by the the specified period of
-   * time.
+   * Move the sprite to a new horizontal position as determined by the the
+   * specified period of time and a direction
    */
-  void move(/** The interval of time during which
-	    the sprite moves. */ double delta) noexcept;
+  void moveHorizontal(/** The interval of time during which the sprite moves. */ double delta) noexcept;
 
   /**
    * Determine whether two sprites are hitting each other.
@@ -68,12 +66,16 @@ public:
   bool hits(/** The other sprite that may be hitting this one. */
 	    const Sprite& other) const noexcept;
 
-  std::string toString()
-  {
-    return ("Width: " + std::to_string(width_) + ", Height: " + std::to_string(height_)
-  + ", xPos: " + std::to_string(cx_) + ", yPos: " + std::to_string(cy_) + ", Idx: "
-  + std::to_string(imageIndex_));
-  }
+  /**
+   * Returns the direction the sprite is facing.
+   * @returns true if the sprite is facing left
+   */
+  bool getDirection() const noexcept;
+
+  /**
+   * Flips the direction the sprite is facing
+   */
+  void flip() noexcept;
 
 private:
   const int width_;  // width in pixels
@@ -81,6 +83,8 @@ private:
 
   double cx_;  // x-coordinate of the center of the sprite
   double cy_;  // y-coordinate of the center of the sprite
+
+  double hv_ = -50;  // horizontal velocity; > 0 facing right; pixels/sec
 
   const unsigned int imageIndex_;  // index in the list of images to use
   SpriteType type_; // The type of sprite this is; defines how it will interact with other sprites

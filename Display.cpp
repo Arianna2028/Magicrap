@@ -6,13 +6,11 @@
 #include "Sprite.h"
 // #include "Sprites.h"
 #include "Display.h"
-#include "Game.h"
 
 using namespace std;
 using namespace project;
 
-Display::Display(int width, int height) : width_(width), height_(height),
-  game_(width, height)
+Display::Display(int width, int height) : width_(width), height_(height)
 {
   cout << "Constructing display." << endl;
 
@@ -113,14 +111,14 @@ unsigned int Display::getImageCount() const noexcept
   return images_.size();
 }
 
-void Display::refresh()
+void Display::refresh(vector<Sprite> sprites)
 {
   if (renderer_) {
     // clear the window
     clearBackground();
 
     // Draw all sprites
-    for (Sprite sprite : game_.getSprites())
+    for (Sprite sprite : sprites)
     {
       // The location of the sprite is a square
       SDL_Rect destination;
@@ -139,7 +137,15 @@ void Display::refresh()
 
         if (imageTexture) {
           // Render the image at the location
-          if  (SDL_RenderCopyEx(renderer_, imageTexture, nullptr, &destination, 0, nullptr, SDL_FLIP_NONE) != 0) {
+          int rv;
+
+          if (!sprite.getDirection()) {
+            rv = SDL_RenderCopyEx(renderer_, imageTexture, nullptr, &destination, 0, nullptr, SDL_FLIP_HORIZONTAL);
+          } else {
+            rv = SDL_RenderCopyEx(renderer_, imageTexture, nullptr, &destination, 0, nullptr, SDL_FLIP_NONE);
+          }
+          
+          if  (rv != 0) {
             close();
             throw domain_error(string("Unable to render a sprite due to: ") + SDL_GetError());
           }

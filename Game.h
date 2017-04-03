@@ -28,6 +28,9 @@ public:
    */
   std::vector<Sprite> getSprites() const noexcept;
 
+  void movePlayerLeft() noexcept;
+  void movePlayerRight() noexcept;
+
 private:
   Sprite player_;  // Player game object
   std::vector<Sprite> enemies_;  // Enemy game objects

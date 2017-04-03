@@ -3,8 +3,8 @@
 #include <stdexcept>
 #include <SDL2/SDL.h>
 
-// #include "Sprites.h"
 #include "Display.h"
+#include "Game.h"
 
 using namespace std;
 using namespace project;
@@ -21,9 +21,11 @@ int main()
 {
   try
   {
-
     // Initialize the graphical display
-    Display display;
+    int width = 800;
+    int height = 600;
+    Game game(width, height);
+    Display display(width, height);
 
     // Add some images to the display
     display.addImage("graphics/image3.bmp");
@@ -44,37 +46,34 @@ int main()
 					quit = true;
 					display.close();
 				} else if (e.type == SDL_KEYDOWN) {
-					handleKeyIn(e);
+          switch (e.key.keysym.sym)
+        	{
+        		case SDLK_UP:
+        			cout << "UP BUTTON PRESSED" << endl;
+        			break;
+        		case SDLK_DOWN:
+        			cout << "DOWN BUTTON PRESSED" << endl;
+        			break;
+        		case SDLK_LEFT:
+        			cout << "LEFT BUTTON PRESSED" << endl;
+              game.movePlayerLeft();
+        			break;
+        		case SDLK_RIGHT:
+        			cout << "RIGHT BUTTON PRESSED" << endl;
+              game.movePlayerRight();
+        			break;
+        		default:
+        			break;
+        	}
 				}
 
 			}
 
-      display.refresh();
+      display.refresh(game.getSprites());
 		}
 
   } catch (const exception& e) {
     cerr << e.what() << endl;
     return 1;
   }
-}
-
-void handleKeyIn(SDL_Event e)
-{
-	switch (e.key.keysym.sym)
-	{
-		case SDLK_UP:
-			cout << "UP BUTTON PRESSED" << endl;
-			break;
-		case SDLK_DOWN:
-			cout << "DOWN BUTTON PRESSED" << endl;
-			break;
-		case SDLK_LEFT:
-			cout << "LEFT BUTTON PRESSED" << endl;
-			break;
-		case SDLK_RIGHT:
-			cout << "RIGHT BUTTON PRESSED" << endl;
-			break;
-		default:
-			break;
-	}
 }
