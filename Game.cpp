@@ -8,7 +8,7 @@ using namespace std;
 using namespace project;
 
 Game::Game(int width, int height) : width_(width), height_(height),
-  player_(SpriteType::PLAYER, 53, 48, width / 2.0, height - 32, 0)
+  player_(SpriteType::PLAYER, 69, 60, width / 2.0, height - 32, 0)
 {
   cout << "Constructing game." << endl;
 }

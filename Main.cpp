@@ -27,7 +27,7 @@ int main()
     Display display(width, height);
 
     // Add some images to the display
-    display.addImage("graphics/image3.bmp");
+    display.addImage("graphics/koffing.bmp");
 
     // Construct the sprite collection
     // Sprites sprites(display);
