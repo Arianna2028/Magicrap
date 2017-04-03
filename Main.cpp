@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <SDL2/SDL.h>
 
-#include "Sprites.h"
+// #include "Sprites.h"
 #include "Display.h"
 
 using namespace std;
@@ -17,20 +17,21 @@ void handleKeyIn(SDL_Event e);
  * the program succeeds, and nonzero status code
  * means the program failed.
  */
-int main() {
-  try {
+int main()
+{
+  try
+  {
 
     // Initialize the graphical display
     Display display;
 
     // Add some images to the display
-    display.addImage("graphics/image1.bmp");
+    display.addImage("graphics/image3.bmp");
 
     // Construct the sprite collection
+    // Sprites sprites(display);
 
-    Sprites sprites(display.getImageCount());
-
-    // Run until quit.
+    // Initialize for event loop
 		bool quit = false;
 		SDL_Event e;
 
@@ -48,8 +49,7 @@ int main() {
 
 			}
 
-			sprites.evolve();
-      display.refresh(sprites);
+      display.refresh();
 		}
 
   } catch (const exception& e) {

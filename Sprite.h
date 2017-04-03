@@ -1,7 +1,7 @@
-#ifndef PING_SPRITE_H
-#define PING_SPRITE_H
+#ifndef PROJECT_SPRITE_H
+#define PROJECT_SPRITE_H
 
-#include <random>
+#include <iostream>
 #include "SpriteType.h"
 
 namespace project {
@@ -15,23 +15,37 @@ public:
    * Construct a sprite.
    * @throw domain_error if the arguments are invalid
    */
-  Sprite(/** Width of the sprite in pixels */ int width,
+  Sprite(
+         /** Type of sprite this is */ SpriteType type,
+         /** Width of the sprite in pixels */ int width,
          /** Height of the sprite in pixels */ int height,
-         /** Starting X position of the sprite */ int startX,
-         /** Starting Y position of the sprite */ int startY,
-         /** Type of sprite this is */ SpriteType type);
+         /** Starting X position of the sprite */ double startX,
+         /** Starting Y position of the sprite */ double startY,
+         /** Image to use to display this sprite */ int idx);
 
   /**
-   * The x-coordinate of a square containing the sprite. (Leftmost pos)
+   * The x-coordinate of the sprite. (Leftmost pos)
    * @return The x-coordinate of the sprite.
    */
   int getXCoordinate() const noexcept;
 
   /**
-   * The y-coordinate of a square containing the sprite. (Topmost pos)
+   * The y-coordinate of the sprite. (Topmost pos)
    * @return The y-coordinate of the sprite.
    */
   int getYCoordinate() const noexcept;
+
+  /**
+   * Get the width of the sprite
+   * @return the width of the sprite in pixels
+   */
+  int getWidth() const noexcept;
+
+  /**
+   * Get the height of the sprite
+   * @return the height of the sprite in pixels
+   */
+  int getHeight() const noexcept;
 
   /**
    * Get the image index of the sprite.
@@ -54,22 +68,28 @@ public:
   bool hits(/** The other sprite that may be hitting this one. */
 	    const Sprite& other) const noexcept;
 
+  std::string toString()
+  {
+    return ("Width: " + std::to_string(width_) + ", Height: " + std::to_string(height_)
+  + ", xPos: " + std::to_string(cx_) + ", yPos: " + std::to_string(cy_) + ", Idx: "
+  + std::to_string(imageIndex_));
+  }
+
 private:
-  /** The width of the sprite in pixels. */
-  const int width_ = 640;
-  /** The height of the sprite in pixels. */
-  const int height_ = 480;
+  const int width_;  // width in pixels
+  const int height_;  // height in pixels
 
-  /** Index of the image to use for the sprite. */
-  const unsigned int imageIndex_ = 0;
+  double cx_;  // x-coordinate of the center of the sprite
+  double cy_;  // y-coordinate of the center of the sprite
 
-  /** The current x-coordinate of the center of the sprite. */
-  double cx_ = 0.0;
-  /** The current y-coordinate of the center of the sprite. */
-  double cy_ = 0.0;
+  const unsigned int imageIndex_;  // index in the list of images to use
+  SpriteType type_; // The type of sprite this is; defines how it will interact with other sprites
 
-  /** The type of sprite this is; defines how it will interact with other sprites */
-  SpriteType type_;
+  /**
+   *  TODO: Fields we might want:
+   *  - bool moving
+   *  - direction
+   */
 };
 
 }

@@ -1,5 +1,5 @@
 #include <vector>
-#include <random>
+#include <iostream>
 #include <stdexcept>
 
 #include "Sprite.h"
@@ -8,26 +8,42 @@
 using namespace std;
 using namespace project;
 
-Sprite::Sprite(int width, int height, int startX, int startY, SpriteType type)
-	: width_(width), height_(height), cx_(startX), cy_(startY), type_(type) {}
+Sprite::Sprite(SpriteType type, int width, int height, double startX,
+	double startY, int idx) : type_(type), width_(width), height_(height),
+	cx_(startX), cy_(startY), imageIndex_(idx) {}
 
-int Sprite::getXCoordinate() const noexcept {
-  return int(cx_ - (width / 2));
+int Sprite::getXCoordinate() const noexcept
+{
+  return int(cx_ - (width_ / 2));
 }
 
-int Sprite::getYCoordinate() const noexcept {
-  return int(cy_ - (height / 2));
+int Sprite::getYCoordinate() const noexcept
+{
+  return int(cy_ - (height_ / 2));
 }
 
-int Sprite::getImageIndex() const noexcept {
+int Sprite::getWidth() const noexcept
+{
+	return width_;
+}
+
+int Sprite::getHeight() const noexcept
+{
+	return height_;
+}
+
+int Sprite::getImageIndex() const noexcept
+{
   return imageIndex_;
 }
 
-void Sprite::move(double delta) noexcept {
+void Sprite::move(double delta) noexcept
+{
 	// TODO: make the sprite move. Might want to break this up into left/right/up
 }
 
-bool Sprite::hits(const Sprite& other) const noexcept {
+bool Sprite::hits(const Sprite& other) const noexcept
+{
 	//TODO: make this work based not on radius
   double dx = other.cx_ - cx_;
   double dy = other.cy_ - cy_;

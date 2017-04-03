@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "RelevantEvent.h"
+#include "Game.h"
 
 class SDL_Window;
 class SDL_Renderer;
@@ -54,23 +55,11 @@ public:
   unsigned int getImageCount() const noexcept;
 
   /**
-   * Check for relevant events as specified in the
-   * RelevantEvent enumeration.  If quit is
-   * requested, the display is closed and deleted.
-   * @return The relevant event that occurred or
-   * None if no relevant event occurred.  If the
-   * Quit event occurred, then the display is
-   * closed and deleted.
-   */
-  RelevantEvent checkForRelevantEvent() noexcept;
-
-  /**
    * Refresh the display.
    * @throw domain_error if the display could not
    * be refreshed.
    */
-  void refresh(/** The sprites to display. */
-	       const Sprites& sprites);
+  void refresh();
 
 private:
   /** The display window. */
@@ -87,6 +76,9 @@ private:
 
   /** The height of the window. */
   const int height_ = 0;
+
+  /** The game we want to render */
+  Game game_;
 
   /**
    * Clear the background to opaque white.
