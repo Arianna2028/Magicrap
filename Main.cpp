@@ -27,10 +27,8 @@ int main()
     Display display(width, height);
 
     // Add some images to the display
-    display.addImage("graphics/koffing.bmp");
-
-    // Construct the sprite collection
-    // Sprites sprites(display);
+    display.addImage("graphics/koffing.png");
+    display.addImage("graphics/ladder.png");
 
     // Initialize for event loop
 		bool quit = false;

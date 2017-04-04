@@ -21,7 +21,8 @@ public:
          /** Height of the sprite in pixels */ int height,
          /** Starting X position of the sprite */ double startX,
          /** Starting Y position of the sprite */ double startY,
-         /** Image to use to display this sprite */ int idx);
+         /** Image to use to display this sprite */ int idx,
+         /** Horizontal speed */ double hv = -50);
 
   /**
    * The x-coordinate of the sprite. (Leftmost pos)
@@ -68,7 +69,7 @@ public:
 
   /**
    * Returns the direction the sprite is facing.
-   * @returns true if the sprite is facing left
+   * @return true if the sprite is facing left
    */
   bool getDirection() const noexcept;
 

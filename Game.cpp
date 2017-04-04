@@ -1,5 +1,8 @@
 #include <vector>
 #include <iostream>
+#include <algorithm>
+#include <functional>
+
 #include "Game.h"
 #include "SpriteType.h"
 #include "Sprite.h"
@@ -11,15 +14,40 @@ Game::Game(int width, int height) : width_(width), height_(height),
   player_(SpriteType::PLAYER, 69, 60, width / 2.0, height - 32, 0)
 {
   cout << "Constructing game." << endl;
+
+  Sprite ladder1(SpriteType::LADDER, 48, 76, 250, height - 40, 1, 0);
+  ladders_.push_back(ladder1);
 }
 
 Game::~Game() {}
 
 vector<Sprite> Game::getSprites() const noexcept
 {
-  // TODO: include enemies and collectibles
   vector<Sprite> allSprites;
+  // TODO: These should compile but won't
+  // allSprites.insert(ladders_.begin(), ladders_.end());
+  // allSprites.insert(enemies_.begin(), enemies_.end());
+  // allSprites.insert(collectibles_.begin(), collectibles_.end());
+
+  // TODO: Temporary solution
+  for (Sprite s : ladders_)
+  {
+    allSprites.push_back(s);
+  }
+
+  for (Sprite s : enemies_)
+  {
+    allSprites.push_back(s);
+  }
+
+  for (Sprite s : collectibles_)
+  {
+    allSprites.push_back(s);
+  }
+
+
   allSprites.push_back(player_);
+
   return allSprites;
 }
 

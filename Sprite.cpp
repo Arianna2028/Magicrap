@@ -9,8 +9,8 @@ using namespace std;
 using namespace project;
 
 Sprite::Sprite(SpriteType type, int width, int height, double startX,
-	double startY, int idx) : type_(type), width_(width), height_(height),
-	cx_(startX), cy_(startY), imageIndex_(idx) {}
+	double startY, int idx, double hv) : type_(type), width_(width), height_(height),
+	cx_(startX), cy_(startY), imageIndex_(idx), hv_(hv) {}
 
 int Sprite::getXCoordinate() const noexcept
 {

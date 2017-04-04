@@ -10,7 +10,8 @@ enum class SpriteType
 {
   /** The player; controlled by the user */ PLAYER,
   /** An enemy; controlled by game logic */ ENEMY,
-  /** A collectible; player can collect for points */ COLLECTIBLE
+  /** A collectible; player can collect for points */ COLLECTIBLE,
+  /** Ladders that the player can use for vertical movement */ LADDER
 };
 
 }

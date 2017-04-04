@@ -34,6 +34,8 @@ public:
 private:
   Sprite player_;  // Player game object
   std::vector<Sprite> enemies_;  // Enemy game objects
+  std::vector<Sprite> ladders_;  // Ladders in the game world
+  std::vector<Sprite> collectibles_;  // Collectible game objects
   const int width_;  // width of the game in pixels
   const int height_;  // height of the game in pixels
 };

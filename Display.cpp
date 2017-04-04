@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <stdexcept>
 #include <iostream>
 #include <vector>
@@ -78,7 +79,8 @@ void Display::addImage(const string& fileLocation) noexcept
   if (renderer_) {
 
     // Load the image from the file
-    SDL_Surface* imageSurface = SDL_LoadBMP(fileLocation.c_str());
+    // SDL_Surface* imageSurface = SDL_LoadBMP(fileLocation.c_str());
+    SDL_Surface* imageSurface = IMG_Load(fileLocation.c_str());
     if (imageSurface) {
 
       // Convert the image to a texture

@@ -1,12 +1,17 @@
-OBJS = $(wildcard *.cpp)  # Files to compile
+# Files to compile
+OBJS = $(wildcard *.cpp)
 
-CC = g++  # Compiler
+# Compiler
+CC = g++
 
-COMPILER_FLAGS = -w -std=c++11 # Additional compiler options
+# Additional compiler options
+COMPILER_FLAGS = -w -std=c++11
 
-LINKER_FLAGS = -lSDL2  # Libraries to link against
+# Libraries to link against
+LINKER_FLAGS = -lSDL2 -lSDL2_image
 
-OBJ_NAME = main  # Name of the executable
+# Name of the executable
+OBJ_NAME = main
 
 all: $(OBJS)
 	g++ $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
