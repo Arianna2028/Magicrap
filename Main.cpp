@@ -27,8 +27,10 @@ int main()
     Display display(width, height);
 
     // Add some images to the display
-    display.addImage("graphics/koffing.png");
-    display.addImage("graphics/ladder.png");
+    display.addImage("graphics/koffing.png");  // idx 0
+    display.addImage("graphics/ladder.png");  // idx 1
+    display.addImage("graphics/floor.png");  // idx 2
+    display.addImage("graphics/background.png");  // idx 3
 
     // Initialize for event loop
 		bool quit = false;

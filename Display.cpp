@@ -77,20 +77,15 @@ void Display::close() noexcept
 void Display::addImage(const string& fileLocation) noexcept
 {
   if (renderer_) {
-
     // Load the image from the file
     // SDL_Surface* imageSurface = SDL_LoadBMP(fileLocation.c_str());
     SDL_Surface* imageSurface = IMG_Load(fileLocation.c_str());
     if (imageSurface) {
 
       // Convert the image to a texture
-
-      SDL_Texture* imageTexture =
-      SDL_CreateTextureFromSurface(renderer_, imageSurface);
+      SDL_Texture* imageTexture = SDL_CreateTextureFromSurface(renderer_, imageSurface);
       if (imageTexture) {
-
         // Add the image to the collection
-
         images_.push_back(imageTexture);
       } else {
         cerr << "1 - Unable to load the image file at " << fileLocation
@@ -98,7 +93,6 @@ void Display::addImage(const string& fileLocation) noexcept
       }
 
       // The surface is not longer needed
-
       SDL_FreeSurface(imageSurface);
     } else {
       cerr << "2 - Unable to load the image file at " << fileLocation
@@ -127,7 +121,6 @@ void Display::refresh(vector<Sprite> sprites)
       destination.y = sprite.getYCoordinate();
       destination.w = sprite.getWidth();
       destination.h = sprite.getHeight();
-      // SDL_Rect destination = { sprite.getXCoordinate(), sprite.getYCoordinate(), sprite.getWidth(), sprite.getHeight() };
 
       // Get the image index and check that it is valid
       unsigned int imageIndex = sprite.getImageIndex();
