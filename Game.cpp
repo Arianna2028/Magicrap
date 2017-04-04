@@ -23,7 +23,7 @@ Game::Game(int width, int height) : width_(width), height_(height),
 
   // Build platforms
   addPlatform(height - (platformHeight / 2), int((width / platformWidth) + 1), 1);
-
+  addPlatform(height - ladderHeight - (platformHeight / 2), 5, 3);
 
   // Build ladders
   Sprite ladder1(SpriteType::LADDER, ladderWidth, ladderHeight,
@@ -99,9 +99,10 @@ void Game::movePlayerRight() noexcept
 
 void Game::addPlatform(int height, int width, int startIdx)
 {
-  for (int ii = startIdx; ii < width ; ii++)
+  for (int ii = startIdx; ii < startIdx + width; ii++)
   {
-    platforms_.push_back(Sprite(SpriteType::PLATFORM, platformWidth, platformHeight,
-    (platformWidth * ii) - (platformWidth / 2), height, 2, 0));
+    platforms_.push_back(Sprite(SpriteType::PLATFORM, platformWidth,
+      platformHeight, (ii * platformWidth) - (platformWidth / 2),
+      height, 2, 0));
   }
 }
