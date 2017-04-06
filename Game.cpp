@@ -73,27 +73,31 @@ vector<Sprite> Game::getSprites() const noexcept
 
 void Game::movePlayerLeft() noexcept
 {
-  // Make sure the player is facing left
-  if (!player_.getDirection()) {
-    player_.flip();
-  }
+  if (!paused_) {
+    // Make sure the player is facing left
+    if (!player_.getDirection()) {
+      player_.flip();
+    }
 
-  // Make sure player isn't at left edge of screen
-  if (!(player_.getXCoordinate() <= 0)) {
-    player_.moveHorizontal(0.1);
+    // Make sure player isn't at left edge of screen
+    if (!(player_.getXCoordinate() <= 0)) {
+      player_.moveHorizontal(0.1);
+    }
   }
 }
 
 void Game::movePlayerRight() noexcept
 {
-  // Make sure the player is facing right
-  if (player_.getDirection()) {
-    player_.flip();
-  }
+  if (!paused_) {
+    // Make sure the player is facing right
+    if (player_.getDirection()) {
+      player_.flip();
+    }
 
-  // Make sure player isn't at right edge of screen
-  if (!(player_.getXCoordinate() >= (width_ - player_.getWidth()))) {
-    player_.moveHorizontal(0.1);
+    // Make sure player isn't at right edge of screen
+    if (!(player_.getXCoordinate() >= (width_ - player_.getWidth()))) {
+      player_.moveHorizontal(0.1);
+    }
   }
 }
 
@@ -105,4 +109,9 @@ void Game::addPlatform(int height, int width, int startIdx)
       platformHeight, (ii * platformWidth) - (platformWidth / 2),
       height, 2, 0));
   }
+}
+
+void Game::pauseUnpause()
+{
+  paused_ = !paused_;
 }

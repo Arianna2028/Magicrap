@@ -43,24 +43,26 @@ int main()
 			{
 				if (e.type == SDL_QUIT) {
 					quit = true;
-					display.close();
 				} else if (e.type == SDL_KEYDOWN) {
           switch (e.key.keysym.sym)
         	{
         		case SDLK_UP:
-        			cout << "UP BUTTON PRESSED" << endl;
         			break;
         		case SDLK_DOWN:
-        			cout << "DOWN BUTTON PRESSED" << endl;
         			break;
         		case SDLK_LEFT:
-        			cout << "LEFT BUTTON PRESSED" << endl;
               game.movePlayerLeft();
         			break;
         		case SDLK_RIGHT:
-        			cout << "RIGHT BUTTON PRESSED" << endl;
               game.movePlayerRight();
         			break;
+            case SDLK_q:
+              quit = true;
+              break;
+            case SDLK_p:
+              game.pauseUnpause();
+              cout << "PAUSE TOGGLED" << endl;
+              break;
         		default:
         			break;
         	}
@@ -71,6 +73,7 @@ int main()
       display.refresh(game.getSprites());
 		}
 
+    display.close();
   } catch (const exception& e) {
     cerr << e.what() << endl;
     return 1;

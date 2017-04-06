@@ -31,21 +31,28 @@ public:
   std::vector<Sprite> getSprites() const noexcept;
 
   /**
-   * Move the player sprite left based on velocity
+   * Move the player sprite left based on velocity.
+   * Player cannot move if game is paused.
    */
   void movePlayerLeft() noexcept;
 
   /**
    * Move the player sprite right based on velocity
+   * Player cannot move if game is paused.
    */
   void movePlayerRight() noexcept;
 
   /**
    * Add a platform to the game at the given height
    */
-   void addPlatform(/** Height in pixels */ int height,
+  void addPlatform(/** Height in pixels */ int height,
                     /** Width in floor tiles */ int width,
                     /** How far in to start in floor tiles */ int startIdx);
+
+  /**
+   * Pauses the game if not paused, or unpauses if paused
+   */
+  void pauseUnpause();
 
 private:
   Sprite player_;  // Player game object
@@ -56,6 +63,7 @@ private:
   std::vector<Sprite> platforms_;  // The floor objects
   const int width_;  // width of the game in pixels
   const int height_;  // height of the game in pixels
+  bool paused_ = false;  // is the game in paused state? defaults to false
 };
 
 }
