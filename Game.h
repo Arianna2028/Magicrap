@@ -43,16 +43,31 @@ public:
   void movePlayerRight() noexcept;
 
   /**
-   * Add a platform to the game at the given height
+   * Move the player up if at a ladder.
+   * Player cannot move if game is paused.
    */
-  void addPlatform(/** Height in pixels */ int height,
-                    /** Width in floor tiles */ int width,
-                    /** How far in to start in floor tiles */ int startIdx);
+  void movePlayerUp() noexcept;
+
+  /**
+   * Move the player down if at a ladder.
+   * Playre cannot move if game is paused.
+   */
+  void movePlayerDown() noexcept;
 
   /**
    * Pauses the game if not paused, or unpauses if paused
    */
   void pauseUnpause();
+
+  /**
+   * Evolves the state of the game by one tick
+   */
+  void evolve() noexcept;
+
+  /**
+   * Stops player movement
+   */
+   void stopPlayer() noexcept;
 
 private:
   Sprite player_;  // Player game object
@@ -64,6 +79,21 @@ private:
   const int width_;  // width of the game in pixels
   const int height_;  // height of the game in pixels
   bool paused_ = false;  // is the game in paused state? defaults to false
+
+  /**
+   * Add a platform to the game at the given height
+   */
+  void addPlatform(/** Height in pixels */ int height,
+                    /** Width in floor tiles */ int width,
+                    /** How far in to start in floor tiles */ int startIdx);
+
+  /**
+   * Calculate if the player is currently in front of a ladder
+   * @return true if the player sprite collides with a ladder
+   */
+  bool playerAtLadder() const noexcept;
+
+  bool playerOnFloor() const noexcept;
 };
 
 }

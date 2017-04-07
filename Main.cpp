@@ -8,8 +8,6 @@
 using namespace std;
 using namespace project;
 
-void handleKeyIn(SDL_Event e);
-
 /**
  * Main program for the bouncing image display.
  * @return The status code. Status code 0 means
@@ -47,8 +45,10 @@ int main()
           switch (e.key.keysym.sym)
         	{
         		case SDLK_UP:
+              game.movePlayerUp();
         			break;
         		case SDLK_DOWN:
+              game.movePlayerDown();
         			break;
         		case SDLK_LEFT:
               game.movePlayerLeft();
@@ -66,10 +66,15 @@ int main()
         		default:
         			break;
         	}
-				}
-
+				} else if (e.type == SDL_KEYUP) {
+          if (e.key.keysym.sym == SDLK_UP || e.key.keysym.sym == SDLK_DOWN ||
+              e.key.keysym.sym == SDLK_LEFT || e.key.keysym.sym == SDLK_RIGHT) {
+            game.stopPlayer();
+          }
+        }
 			}
 
+      game.evolve();
       display.refresh(game.getSprites());
 		}
 

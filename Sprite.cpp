@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <stdexcept>
+#include <cmath>
 
 #include "Sprite.h"
 #include "SpriteType.h"
@@ -9,8 +10,8 @@ using namespace std;
 using namespace project;
 
 Sprite::Sprite(SpriteType type, int width, int height, double startX,
-	double startY, int idx, double hv) : type_(type), width_(width), height_(height),
-	cx_(startX), cy_(startY), imageIndex_(idx), hv_(hv) {}
+	double startY, int idx) : type_(type), width_(width), height_(height),
+	cx_(startX), cy_(startY), imageIndex_(idx) {}
 
 int Sprite::getXCoordinate() const noexcept
 {
@@ -37,27 +38,34 @@ int Sprite::getImageIndex() const noexcept
   return imageIndex_;
 }
 
-void Sprite::moveHorizontal(double delta) noexcept
-{
-	cx_ += delta * hv_;
-}
-
 bool Sprite::hits(const Sprite& other) const noexcept
 {
-	//TODO: make this work based not on radius
-  double dx = other.cx_ - cx_;
-  double dy = other.cy_ - cy_;
-  double dist2 = dx * dx + dy * dy;
-  // return (dist2 < (other.radius_ + radius_) * (other.radius_ + radius_));
-	return false;
+	return (abs(cx_ - other.cx_) * 2 < (width_ + other.width_)) &&
+		(abs(cy_ - other.cy_) * 2 < (height_ + other.height_));
 }
 
 bool Sprite::getDirection() const noexcept
 {
-	return hv_ < 0.0;
+	return direction_;
 }
 
 void Sprite::flip() noexcept
 {
-	hv_ = -(hv_);
+	direction_ = !direction_;
+}
+
+void Sprite::setHorizontalVelocity(double hv) noexcept
+{
+	hv_ = hv;
+}
+
+void Sprite::setVerticalVelocity(double vv) noexcept
+{
+	vv_ = vv;
+}
+
+void Sprite::evolve() noexcept
+{
+	cx_ += hv_;
+	cy_ -= vv_;
 }

@@ -21,8 +21,7 @@ public:
          /** Height of the sprite in pixels */ int height,
          /** Starting X position of the sprite */ double startX,
          /** Starting Y position of the sprite */ double startY,
-         /** Image to use to display this sprite */ int idx,
-         /** Horizontal speed */ double hv = -50);
+         /** Image to use to display this sprite */ int idx);
 
   /**
    * The x-coordinate of the sprite. (Leftmost pos)
@@ -52,13 +51,17 @@ public:
    * Get the image index of the sprite.
    * @return The index of the image to use for the sprite.
    */
-  int getImageIndex() const noexcept;
+   int getImageIndex() const noexcept;
 
-  /**
-   * Move the sprite to a new horizontal position as determined by the the
-   * specified period of time and a direction
+   /**
+   * Sets the horizontal velocity of a sprite.
    */
-  void moveHorizontal(/** The interval of time during which the sprite moves. */ double delta) noexcept;
+   void setHorizontalVelocity(/** New horizontal velocity */ double hv) noexcept;
+
+   /**
+   * Sets the vertical velocity of a sprite.
+   */
+   void setVerticalVelocity(/** New vertical velocity */ double vv) noexcept;
 
   /**
    * Determine whether two sprites are hitting each other.
@@ -78,6 +81,11 @@ public:
    */
   void flip() noexcept;
 
+  /**
+   * Moves the sprite per tick
+   */
+   void evolve() noexcept;
+
 private:
   const int width_;  // width in pixels
   const int height_;  // height in pixels
@@ -85,16 +93,13 @@ private:
   double cx_;  // x-coordinate of the center of the sprite
   double cy_;  // y-coordinate of the center of the sprite
 
-  double hv_ = -50;  // horizontal velocity; > 0 facing right; pixels/sec
+  double hv_ = 0;  // horizontal velocity; > 0 moving right
+  double vv_ = 0;  // vertical velocity; > 0 moving up
+
+  bool direction_ = true;  // true if facing left
 
   const unsigned int imageIndex_;  // index in the list of images to use
   SpriteType type_; // The type of sprite this is; defines how it will interact with other sprites
-
-  /**
-   *  TODO: Fields we might want:
-   *  - bool moving
-   *  - direction
-   */
 };
 
 }
