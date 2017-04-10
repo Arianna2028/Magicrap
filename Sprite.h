@@ -96,6 +96,11 @@ public:
    */
   void setYCoordinate(/** New y coord */ double yy) noexcept;
 
+  /**
+   * Sets this sprite's x coordinate
+   */
+   void setXCoordinate(/** New x coord */ double xx) noexcept;
+
 private:
   const int width_;  // width in pixels
   const int height_;  // height in pixels

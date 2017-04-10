@@ -2,6 +2,7 @@
 #define PING_DISPLAY_H
 
 #include <vector>
+#include <SDL2/SDL_ttf.h>
 #include "Sprite.h"
 
 class SDL_Window;
@@ -58,7 +59,7 @@ public:
    * @throw domain_error if the display could not
    * be refreshed.
    */
-  void refresh(std::vector<Sprite> sprites);
+  void refresh(std::vector<Sprite> sprites, std::string text);
 
 private:
   /** The display window. */
@@ -66,6 +67,9 @@ private:
 
   /** The display rendering tool. */
   SDL_Renderer* renderer_ = nullptr;
+
+  /** Font to disply text */
+  TTF_Font* font_ = nullptr;
 
   /** The collection of images. */
   std::vector<SDL_Texture*> images_;
@@ -75,6 +79,8 @@ private:
 
   /** The height of the window. */
   const int height_ = 0;
+
+
 
   /**
    * Clear the background to opaque white.

@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdexcept>
 #include <iostream>
 #include <vector>
@@ -36,6 +37,17 @@ Display::Display(int width, int height) : width_(width), height_(height)
     throw domain_error(string("Unable to create the renderer due to: ") + SDL_GetError());
   }
 
+  if (TTF_Init() == -1) {
+    throw domain_error(string("TTF Initialization failed due to: ") + SDL_GetError());
+  }
+
+  font_ = TTF_OpenFont("graphics/rubber-biscuit.bold.ttf", 32);
+
+  if (!font_) {
+    close();
+    throw domain_error(string("Unable to create font due to: ") + SDL_GetError());
+  }
+
   // Clear the window
   clearBackground();
 }
@@ -68,6 +80,11 @@ void Display::close() noexcept
   if (window_) {
     SDL_DestroyWindow(window_);
     window_ = nullptr;
+  }
+
+  if (font_) {
+    TTF_CloseFont(font_);
+    TTF_Quit();
   }
 
   // The last step is to quit SDL
@@ -106,7 +123,7 @@ unsigned int Display::getImageCount() const noexcept
   return images_.size();
 }
 
-void Display::refresh(vector<Sprite> sprites)
+void Display::refresh(vector<Sprite> sprites, string text)
 {
   if (renderer_) {
     // clear the window
@@ -154,6 +171,12 @@ void Display::refresh(vector<Sprite> sprites)
     }
 
     SDL_RenderPresent(renderer_);
+  }
+
+  if (font_) {
+    SDL_Color textColor = {0, 0, 0};
+    auto textAsCharArray = text.c_str();
+    TTF_RenderText_Solid(font_, textAsCharArray, textColor);
   }
 }
 

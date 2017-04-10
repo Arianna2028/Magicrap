@@ -89,3 +89,8 @@ void Sprite::setYCoordinate(double yy) noexcept
 {
 	cy_ = yy;
 }
+
+void Sprite::setXCoordinate(double xx) noexcept
+{
+	cx_ = xx;
+}

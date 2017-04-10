@@ -30,11 +30,9 @@ Game::Game(int width, int height) : width_(width), height_(height),
   for (int ii = 0; ii <= 6; ii++)
   {
     addPlatform(platformStartHeight - (ii * platformInterval), platformsAcross, 1);
-
-    if (ii < 6) {
-      collectibles_.push_back(Sprite(16, 16, 100, platformStartHeight - (ii * platformInterval) - 32, 8));
-    }
   }
+
+  addCollectibles();
 
   // Build ladders
   int ladderStartHeight = height - platformHeight - (ladderHeight / 2);
@@ -132,7 +130,7 @@ void Game::movePlayerUp() noexcept
     player_.setVerticalVelocity(playerSpeed);
     player_.setYCoordinate(player_.getYCoordinate() + (player_.getHeight() / 2) - 1);
     blockPlayerMove_ = true;
-    playerStopVertical_ = player_.getYCoordinate() - 66;
+    playerStopVertical_ = player_.getYCoordinate() - 63;
   }
 }
 
@@ -142,7 +140,7 @@ void Game::movePlayerDown() noexcept
     player_.setVerticalVelocity(-playerSpeed);
     player_.setYCoordinate(player_.getYCoordinate() + (player_.getHeight() / 2) + 1);
     blockPlayerMove_ = true;
-    playerStopVertical_ = player_.getYCoordinate() + 66;
+    playerStopVertical_ = player_.getYCoordinate() + 63;
   }
 }
 
@@ -202,7 +200,9 @@ void Game::evolve() noexcept
     if (player_.hits(exit_)) {
       gameOver_ = true;
       wonGame_ = true;
+      text_ = "Your score: " + to_string(playerScore_);
       cout << "Player won game." << endl;
+      cout << "Score: " << to_string(playerScore_) << endl;
     }
 
     // Check for lose
@@ -211,30 +211,19 @@ void Game::evolve() noexcept
       if (player_.hits(e)) {
         gameOver_ = true;
         wonGame_ = false;
+        text_ = "Your score: " + to_string(playerScore_);
         cout << "Player lost game." << endl;
+        cout << "Score: " << to_string(playerScore_) << endl;
       }
     }
 
     // Check for collectibles
-    for (Sprite c : collectibles_)
+    for (Sprite& c : collectibles_)
     {
       if (player_.hits(c)) {
         playerScore_++;
         cout << "Score++" << endl;
-
-        int findC = -1;
-        for (int ii = 0; ii < collectibles_.size(); ii++)
-        {
-          if (collectibles_.at(ii).getYCoordinate() == c.getYCoordinate()) {
-            findC = ii;
-          }
-        }
-
-        if (findC >= 0) {
-          // collectibles_.erase(collectibles_.begin() + findC);
-        }
-
-        // vector<Sprite>::iterator pos = find(collectibles_.begin(), collectibles_.end(), c);
+        c.setXCoordinate(-100);
       }
     }
   }
@@ -244,4 +233,36 @@ void Game::stopPlayer() noexcept
 {
   player_.setVerticalVelocity(0);
   player_.setHorizontalVelocity(0);
+}
+
+void Game::reset() noexcept
+{
+  player_.setYCoordinate(height_ - 35);
+  player_.setXCoordinate(width_ / 2.0);
+  stopPlayer();
+  gameOver_ = false;
+  wonGame_ = false;
+  addCollectibles();
+  paused_ = false;
+  blockPlayerMove_ = false;
+  playerScore_ = 0;
+  text_ = "";
+}
+
+void Game::addCollectibles() noexcept
+{
+  collectibles_.clear();
+  int platformStartHeight = height_ - (platformHeight / 2);
+  int platformInterval = 63;
+
+
+  for (int ii = 1; ii < 6; ii++)
+  {
+    collectibles_.push_back(Sprite(16, 16, 100, platformStartHeight - (ii * platformInterval) - 32, 8));
+  }
+}
+
+const string& Game::getText() const noexcept
+{
+  return text_;
 }

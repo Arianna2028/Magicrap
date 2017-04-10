@@ -8,7 +8,7 @@ CC = g++
 COMPILER_FLAGS = -w -std=c++11
 
 # Libraries to link against
-LINKER_FLAGS = -lSDL2 -lSDL2_image
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 
 # Name of the executable
 OBJ_NAME = main

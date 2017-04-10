@@ -68,6 +68,10 @@ int main()
               game.pauseUnpause();
               cout << "PAUSE TOGGLED" << endl;
               break;
+            case SDLK_n:
+              game.reset();
+              cout << "NEW GAME STARTED" << endl;
+              break;
         		default:
         			break;
         	}
@@ -79,7 +83,7 @@ int main()
 			}
 
       game.evolve();
-      display.refresh(game.getSprites());
+      display.refresh(game.getSprites(), game.getText());
 		}
 
     display.close();

@@ -2,6 +2,7 @@
 #define PROJECT_GAME_H
 
 #include <vector>
+#include <iostream>
 #include "Sprite.h"
 
 namespace project
@@ -69,6 +70,16 @@ public:
    */
    void stopPlayer() noexcept;
 
+   /**
+    * Resets the state of the game to a new game
+    */
+    void reset() noexcept;
+
+    /**
+     * Get text to display on the screen
+     */
+     const std::string& getText() const noexcept;
+
 private:
   Sprite player_;  // Player game object
   Sprite background_;  // Background object
@@ -88,6 +99,8 @@ private:
   bool wonGame_ = false;  // true = winner, false = loser
   int playerStopVertical_ = 0;  // calculate vertical movement
   int playerScore_ = 0;  // how many collectibles the player has gotten
+  std::string text_ = "";  // text to render to the screen
+
 
   /**
    * Add a platform to the game at the given height
@@ -101,6 +114,11 @@ private:
    * @return true if the player sprite collides with a ladder
    */
   bool playerAtLadder() const noexcept;
+
+  /**
+   * Spawns the collectibles
+   */
+   void addCollectibles() noexcept;
 };
 
 }
