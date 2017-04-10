@@ -193,17 +193,6 @@ void Game::evolve() noexcept
     player_.setYCoordinate(player_.getYCoordinate() + (player_.getHeight() / 2) - 3);
   }
 
-  // Evolve all enemies
-  for (Sprite& enemy : enemies_) {
-    // if enemy is too close to side of screen, switch directions
-    if (enemy.getXCoordinate() + enemy.getWidth() >=  width_ ||
-        enemy.getXCoordinate() <= 0) {
-      enemy.switchDir();
-    }
-    enemy.evolve();
-  }
-
-
   // Evolve the game
   if (!paused_ && !gameOver_) {
     // Move player
@@ -216,6 +205,16 @@ void Game::evolve() noexcept
       text_ = "Your score - " + to_string(playerScore_);
       cout << "Player won game." << endl;
       cout << "Score: " << to_string(playerScore_) << endl;
+    }
+
+    // Evolve all enemies
+    for (Sprite& enemy : enemies_) {
+      // if enemy is too close to side of screen, switch directions
+      if (enemy.getXCoordinate() + enemy.getWidth() >=  width_ ||
+          enemy.getXCoordinate() <= 0) {
+        enemy.switchDir();
+      }
+      enemy.evolve();
     }
 
     // Check for lose
