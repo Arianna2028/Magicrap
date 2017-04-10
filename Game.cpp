@@ -256,6 +256,7 @@ void Game::reset() noexcept
   gameOver_ = false;
   wonGame_ = false;
   addCollectibles();
+  spawnEnemies();
   paused_ = false;
   blockPlayerMove_ = false;
   playerScore_ = 0;
@@ -281,6 +282,8 @@ const string& Game::getText() const noexcept
 }
 
 void Game::spawnEnemies() noexcept {
+  enemies_.clear();
+
   int platformStartHeight = this->height_ - (platformHeight / 2);
   int platformInterval = 63;
   srand(time(NULL));
@@ -294,7 +297,7 @@ void Game::spawnEnemies() noexcept {
       enemyX = rand() % this->width_;
     }
     // creates enemy, with random direction
-    Sprite enemy(64, 64, enemyX, enemyY + 30, 9);
+    Sprite enemy(60, 60, enemyX, enemyY + 30, 9);
     int hv = -2;
     enemy.setHorizontalVelocity(hv);
     if (rand() % 2 == 0) {
