@@ -14,10 +14,8 @@ using namespace project;
  * the program succeeds, and nonzero status code
  * means the program failed.
  */
-int main()
-{
-  try
-  {
+int main() {
+  try {
     // Initialize the graphical display
     int width = 800;
     int height = 600;
@@ -84,10 +82,9 @@ int main()
 			}
 
       game.evolve();
-      display.refresh(game.getSprites(), game.getText());
+      display.refresh(game.getSprites(), game.getScore());
 		}
 
-    display.close();
   } catch (const exception& e) {
     cerr << e.what() << endl;
     return 1;
