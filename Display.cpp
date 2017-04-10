@@ -176,7 +176,11 @@ void Display::refresh(vector<Sprite> sprites, string text)
   if (font_) {
     SDL_Color textColor = {0, 0, 0};
     auto textAsCharArray = text.c_str();
-    TTF_RenderText_Solid(font_, textAsCharArray, textColor);
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font_, textAsCharArray, textColor);
+    SDL_Rect textRect = { 400, 700, 400, 200 };
+    SDL_Texture* solidTexture = SDL_CreateTextureFromSurface(renderer_, textSurface);
+    // SDL_FreeSurface(textSurface);
+    SDL_QueryTexture(solidTexture, NULL, NULL, &textRect.w, &textRect.h);
   }
 }
 

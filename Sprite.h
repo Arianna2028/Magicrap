@@ -2,7 +2,6 @@
 #define PROJECT_SPRITE_H
 
 #include <iostream>
-#include "SpriteType.h"
 
 namespace project {
 

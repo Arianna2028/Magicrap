@@ -5,7 +5,6 @@
 #include <cstdlib>
 
 #include "Game.h"
-#include "SpriteType.h"
 #include "Sprite.h"
 
 using namespace std;
@@ -295,7 +294,7 @@ void Game::spawnEnemies() noexcept {
       enemyX = rand() % this->width_;
     }
     // creates enemy, with random direction
-    Sprite enemy(80, 80, enemyX, enemyY + 30, 9);
+    Sprite enemy(64, 64, enemyX, enemyY + 30, 9);
     int hv = -2;
     enemy.setHorizontalVelocity(hv);
     if (rand() % 2 == 0) {

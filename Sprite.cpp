@@ -4,7 +4,6 @@
 #include <cmath>
 
 #include "Sprite.h"
-#include "SpriteType.h"
 
 using namespace std;
 using namespace project;
