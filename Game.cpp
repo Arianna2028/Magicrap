@@ -22,7 +22,7 @@ Game::Game(int width, int height) : width_(width), height_(height),
 {
   cout << "Constructing game." << endl;
 
-  // Build platforms
+  // Build platforms & collectibles
   int platformsAcross = (width / platformWidth) + 1;
   int platformStartHeight = height - (platformHeight / 2);
   int platformInterval = 63;
@@ -30,6 +30,10 @@ Game::Game(int width, int height) : width_(width), height_(height),
   for (int ii = 0; ii <= 6; ii++)
   {
     addPlatform(platformStartHeight - (ii * platformInterval), platformsAcross, 1);
+
+    if (ii < 6) {
+      collectibles_.push_back(Sprite(16, 16, 100, platformStartHeight - (ii * platformInterval) - 32, 8));
+    }
   }
 
   // Build ladders
@@ -70,12 +74,12 @@ vector<Sprite> Game::getSprites() const noexcept
     allSprites.push_back(s);
   }
 
-  for (Sprite s : enemies_)
+  for (Sprite s : collectibles_)
   {
     allSprites.push_back(s);
   }
 
-  for (Sprite s : collectibles_)
+  for (Sprite s : enemies_)
   {
     allSprites.push_back(s);
   }
@@ -191,15 +195,47 @@ void Game::evolve() noexcept
 
   // Evolve the game
   if (!paused_ && !gameOver_) {
+    // Move player
     player_.evolve();
-
-    //TODO evolve everything else too
 
     // Check for win
     if (player_.hits(exit_)) {
       gameOver_ = true;
       wonGame_ = true;
       cout << "Player won game." << endl;
+    }
+
+    // Check for lose
+    for (Sprite e : enemies_)
+    {
+      if (player_.hits(e)) {
+        gameOver_ = true;
+        wonGame_ = false;
+        cout << "Player lost game." << endl;
+      }
+    }
+
+    // Check for collectibles
+    for (Sprite c : collectibles_)
+    {
+      if (player_.hits(c)) {
+        playerScore_++;
+        cout << "Score++" << endl;
+
+        int findC = -1;
+        for (int ii = 0; ii < collectibles_.size(); ii++)
+        {
+          if (collectibles_.at(ii).getYCoordinate() == c.getYCoordinate()) {
+            findC = ii;
+          }
+        }
+
+        if (findC >= 0) {
+          // collectibles_.erase(collectibles_.begin() + findC);
+        }
+
+        // vector<Sprite>::iterator pos = find(collectibles_.begin(), collectibles_.end(), c);
+      }
     }
   }
 }

@@ -91,7 +91,10 @@ public:
     */
   double getVerticalVelocity() const noexcept;
 
-  void setYCoordinate(double yy) noexcept;
+  /**
+   * Sets this sprite's y coordinate
+   */
+  void setYCoordinate(/** New y coord */ double yy) noexcept;
 
 private:
   const int width_;  // width in pixels

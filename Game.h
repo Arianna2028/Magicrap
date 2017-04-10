@@ -86,7 +86,8 @@ private:
   bool blockPlayerMove_ = false;  // is the player blocked from moving?
   bool gameOver_ = false;  // is the game in progress?
   bool wonGame_ = false;  // true = winner, false = loser
-  int playerStopVertical_ = 0;
+  int playerStopVertical_ = 0;  // calculate vertical movement
+  int playerScore_ = 0;  // how many collectibles the player has gotten
 
   /**
    * Add a platform to the game at the given height

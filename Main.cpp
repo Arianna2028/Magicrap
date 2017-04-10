@@ -33,6 +33,7 @@ int main()
     display.addImage("graphics/winner.png");  // idx 5
     display.addImage("graphics/loser.png");  // idx 6
     display.addImage("graphics/door.png");  // idx 7
+    display.addImage("graphics/collectible.png");  // idx 8
 
     // Initialize for event loop
 		bool quit = false;
