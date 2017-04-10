@@ -277,7 +277,7 @@ void Game::addCollectibles() noexcept
   }
 }
 
-const string& Game::getScore() const noexcept
+const string Game::getScore() const noexcept
 {
   return " " + to_string(playerScore_);
 }
