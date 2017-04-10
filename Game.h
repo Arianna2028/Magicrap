@@ -119,6 +119,11 @@ private:
    * Spawns the collectibles
    */
    void addCollectibles() noexcept;
+
+   /*
+   * Spawns an amount of enemies randomly distributed around the game
+   */
+  void spawnEnemies() noexcept;
 };
 
 }

@@ -34,6 +34,7 @@ int main()
     display.addImage("graphics/loser.png");  // idx 6
     display.addImage("graphics/door.png");  // idx 7
     display.addImage("graphics/collectible.png");  // idx 8
+    display.addImage("graphics/magikarp.png"); // idx 9
 
     // Initialize for event loop
 		bool quit = false;

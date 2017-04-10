@@ -101,6 +101,11 @@ public:
    */
    void setXCoordinate(/** New x coord */ double xx) noexcept;
 
+   /*
+   * Switches direction of horizontal velocity.
+   */
+  void switchDir() noexcept;
+
 private:
   const int width_;  // width in pixels
   const int height_;  // height in pixels

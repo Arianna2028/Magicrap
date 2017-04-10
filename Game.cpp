@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <functional>
+#include <cstdlib>
 
 #include "Game.h"
 #include "SpriteType.h"
@@ -52,6 +53,9 @@ Game::Game(int width, int height) : width_(width), height_(height),
   ladders_.push_back(ladder6);
   ladders_.push_back(ladder7);
   ladders_.push_back(ladder8);
+
+  // spawn enemies
+  spawnEnemies();
 }
 
 Game::~Game() {}
@@ -190,6 +194,16 @@ void Game::evolve() noexcept
     player_.setYCoordinate(player_.getYCoordinate() + (player_.getHeight() / 2) - 3);
   }
 
+  // Evolve all enemies
+  for (Sprite& enemy : enemies_) {
+    // if enemy is too close to side of screen, switch directions
+    if (enemy.getXCoordinate() + enemy.getWidth() >=  width_ ||
+        enemy.getXCoordinate() <= 0) {
+      enemy.switchDir();
+    }
+    enemy.evolve();
+  }
+
 
   // Evolve the game
   if (!paused_ && !gameOver_) {
@@ -265,4 +279,29 @@ void Game::addCollectibles() noexcept
 const string& Game::getText() const noexcept
 {
   return text_;
+}
+
+void Game::spawnEnemies() noexcept {
+  int platformStartHeight = this->height_ - (platformHeight / 2);
+  int platformInterval = 63;
+  srand(time(NULL));
+
+  // spawn one enemy per level except the first one
+  for (int ii = 2; ii <= 6; ++ii) {
+    int enemyY = platformStartHeight - (ii * platformInterval);
+    int enemyX = rand() % this->width_;
+    // make sure enemy is not too close to edge
+    while (enemyX < 40 || enemyX > width_ - 40) {
+      enemyX = rand() % this->width_;
+    }
+    // creates enemy, with random direction
+    Sprite enemy(80, 80, enemyX, enemyY + 30, 9);
+    int hv = -2;
+    enemy.setHorizontalVelocity(hv);
+    if (rand() % 2 == 0) {
+      enemy.switchDir();
+    }
+    // adds enemy to game's list of enemies
+    this->enemies_.push_back(enemy);
+  }
 }
