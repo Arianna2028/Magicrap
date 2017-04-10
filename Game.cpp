@@ -213,7 +213,7 @@ void Game::evolve() noexcept
     if (player_.hits(exit_)) {
       gameOver_ = true;
       wonGame_ = true;
-      text_ = "Your score: " + to_string(playerScore_);
+      text_ = "Your score - " + to_string(playerScore_);
       cout << "Player won game." << endl;
       cout << "Score: " << to_string(playerScore_) << endl;
     }
@@ -224,7 +224,7 @@ void Game::evolve() noexcept
       if (player_.hits(e)) {
         gameOver_ = true;
         wonGame_ = false;
-        text_ = "Your score: " + to_string(playerScore_);
+        text_ = "Your score - " + to_string(playerScore_);
         cout << "Player lost game." << endl;
         cout << "Score: " << to_string(playerScore_) << endl;
       }
@@ -236,6 +236,7 @@ void Game::evolve() noexcept
       if (player_.hits(c)) {
         playerScore_++;
         cout << "Score++" << endl;
+        text_ = "Your score - " + to_string(playerScore_);
         c.setXCoordinate(-100);
       }
     }
@@ -276,9 +277,9 @@ void Game::addCollectibles() noexcept
   }
 }
 
-const string& Game::getText() const noexcept
+const string Game::getScore() const noexcept
 {
-  return text_;
+  return " " + to_string(playerScore_);
 }
 
 void Game::spawnEnemies() noexcept {

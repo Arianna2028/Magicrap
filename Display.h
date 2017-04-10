@@ -68,8 +68,11 @@ private:
   /** The display rendering tool. */
   SDL_Renderer* renderer_ = nullptr;
 
-  /** Font to disply text */
-  TTF_Font* font_ = nullptr;
+  /** First font to disply text */
+  TTF_Font* font1_ = nullptr;
+
+  /** First font to disply text */
+  TTF_Font* font2_ = nullptr;
 
   /** The collection of images. */
   std::vector<SDL_Texture*> images_;
@@ -79,8 +82,6 @@ private:
 
   /** The height of the window. */
   const int height_ = 0;
-
-
 
   /**
    * Clear the background to opaque white.
