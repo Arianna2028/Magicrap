@@ -16,7 +16,6 @@ public:
    * @throw domain_error if the arguments are invalid
    */
   Sprite(
-         /** Type of sprite this is */ SpriteType type,
          /** Width of the sprite in pixels */ int width,
          /** Height of the sprite in pixels */ int height,
          /** Starting X position of the sprite */ double startX,
@@ -86,6 +85,14 @@ public:
    */
    void evolve() noexcept;
 
+   /**
+    * Get the vertical velocity of the sprite
+    * @return vertical velocity of sprite
+    */
+  double getVerticalVelocity() const noexcept;
+
+  void setYCoordinate(double yy) noexcept;
+
 private:
   const int width_;  // width in pixels
   const int height_;  // height in pixels
@@ -99,7 +106,6 @@ private:
   bool direction_ = true;  // true if facing left
 
   const unsigned int imageIndex_;  // index in the list of images to use
-  SpriteType type_; // The type of sprite this is; defines how it will interact with other sprites
 };
 
 }

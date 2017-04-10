@@ -72,6 +72,10 @@ public:
 private:
   Sprite player_;  // Player game object
   Sprite background_;  // Background object
+  Sprite pausedSprite_ = Sprite(330, 84, 400, 300, 4);  // Paused label
+  Sprite winnerSprite_ = Sprite(363, 84, 400, 300, 5);  // winner text
+  Sprite exit_ = Sprite(44, 82, 150, 175, 7);  // exit
+  Sprite loserSprite_ = Sprite(412, 80, 400, 300, 6);  // loser text
   std::vector<Sprite> enemies_;  // Enemy game objects
   std::vector<Sprite> ladders_;  // Ladders in the game world
   std::vector<Sprite> collectibles_;  // Collectible game objects
@@ -79,6 +83,10 @@ private:
   const int width_;  // width of the game in pixels
   const int height_;  // height of the game in pixels
   bool paused_ = false;  // is the game in paused state? defaults to false
+  bool blockPlayerMove_ = false;  // is the player blocked from moving?
+  bool gameOver_ = false;  // is the game in progress?
+  bool wonGame_ = false;  // true = winner, false = loser
+  int playerStopVertical_ = 0;
 
   /**
    * Add a platform to the game at the given height
@@ -92,8 +100,6 @@ private:
    * @return true if the player sprite collides with a ladder
    */
   bool playerAtLadder() const noexcept;
-
-  bool playerOnFloor() const noexcept;
 };
 
 }

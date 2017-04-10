@@ -29,6 +29,10 @@ int main()
     display.addImage("graphics/ladder.png");  // idx 1
     display.addImage("graphics/floor.png");  // idx 2
     display.addImage("graphics/background.png");  // idx 3
+    display.addImage("graphics/paused.png");  // idx 4
+    display.addImage("graphics/winner.png");  // idx 5
+    display.addImage("graphics/loser.png");  // idx 6
+    display.addImage("graphics/door.png");  // idx 7
 
     // Initialize for event loop
 		bool quit = false;
@@ -67,8 +71,7 @@ int main()
         			break;
         	}
 				} else if (e.type == SDL_KEYUP) {
-          if (e.key.keysym.sym == SDLK_UP || e.key.keysym.sym == SDLK_DOWN ||
-              e.key.keysym.sym == SDLK_LEFT || e.key.keysym.sym == SDLK_RIGHT) {
+          if (e.key.keysym.sym == SDLK_LEFT || e.key.keysym.sym == SDLK_RIGHT) {
             game.stopPlayer();
           }
         }
