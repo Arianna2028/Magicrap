@@ -1,4 +1,5 @@
 Magicrap: A Platforming Game
+
 Authors: Simon Kay, Arianna Tang
 
 How to Build:
