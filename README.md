@@ -12,7 +12,7 @@ collecting as many coins as possible. Hold down the left or right keys to move
 the Koffing in that direction. When reaching a ladder, simply tap the key and
 you will move up the ladder. At any point in the game, you can press the "p"
 key to pause (you will become invulnerable to the Magikarps), or the "q" key
-to completely quit the game.
+to completely quit the game. The "n" key starts a new game.
 
 On Sprite Licensing:
 The sprites in this game were taken from Pokémon, Undertale, and Donkey Kong.
