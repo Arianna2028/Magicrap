@@ -147,7 +147,7 @@ void Display::refresh(vector<Sprite> sprites, string score)
       // Get the image index and check that it is valid
       unsigned int imageIndex = sprite.getImageIndex();
 
-      if (imageIndex >= 0 && imageIndex < images_.size()) {
+      if (imageIndex < images_.size()) {
         // Get the image for the sprite
         SDL_Texture* imageTexture = images_.at(imageIndex);
 
