@@ -78,7 +78,7 @@ public:
   /**
    * Get text to display on the screen
    */
-  const std::string& getScore() const noexcept;
+  const std::string getScore() const noexcept;
 
 private:
   Sprite player_;  // Player game object
