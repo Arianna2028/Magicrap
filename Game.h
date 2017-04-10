@@ -68,17 +68,17 @@ public:
   /**
    * Stops player movement
    */
-   void stopPlayer() noexcept;
+  void stopPlayer() noexcept;
 
-   /**
-    * Resets the state of the game to a new game
-    */
-    void reset() noexcept;
+  /**
+   * Resets the state of the game to a new game
+   */
+  void reset() noexcept;
 
-    /**
-     * Get text to display on the screen
-     */
-     const std::string& getText() const noexcept;
+  /**
+   * Get text to display on the screen
+   */
+  const std::string getScore() const noexcept;
 
 private:
   Sprite player_;  // Player game object
@@ -99,7 +99,7 @@ private:
   bool wonGame_ = false;  // true = winner, false = loser
   int playerStopVertical_ = 0;  // calculate vertical movement
   int playerScore_ = 0;  // how many collectibles the player has gotten
-  std::string text_ = "";  // text to render to the screen
+  std::string text_ = "Your score - 0";  // text to render to the screen
 
 
   /**
@@ -118,9 +118,9 @@ private:
   /**
    * Spawns the collectibles
    */
-   void addCollectibles() noexcept;
+  void addCollectibles() noexcept;
 
-   /*
+  /**
    * Spawns an amount of enemies randomly distributed around the game
    */
   void spawnEnemies() noexcept;

@@ -41,11 +41,15 @@ Display::Display(int width, int height) : width_(width), height_(height)
     throw domain_error(string("TTF Initialization failed due to: ") + SDL_GetError());
   }
 
-  font_ = TTF_OpenFont("graphics/rubber-biscuit.bold.ttf", 32);
+  font1_ = TTF_OpenFont("graphics/rubber-biscuit.bold.ttf", 32);
+  font2_ = TTF_OpenFont("graphics/myriad_pro.ttf", 32);
 
-  if (!font_) {
+  if (!font1_) {
     close();
-    throw domain_error(string("Unable to create font due to: ") + SDL_GetError());
+    throw domain_error(string("Unable to create font1 due to: ") + SDL_GetError());
+  }else if (!font2_) {
+    close();
+    throw domain_error(string("Unable to create font1 due to: ") + SDL_GetError());
   }
 
   // Clear the window
@@ -82,8 +86,9 @@ void Display::close() noexcept
     window_ = nullptr;
   }
 
-  if (font_) {
-    TTF_CloseFont(font_);
+  if (font1_ || font2_) {
+    TTF_CloseFont(font1_);
+    TTF_CloseFont(font2_);
     TTF_Quit();
   }
 
@@ -123,7 +128,7 @@ unsigned int Display::getImageCount() const noexcept
   return images_.size();
 }
 
-void Display::refresh(vector<Sprite> sprites, string text)
+void Display::refresh(vector<Sprite> sprites, string score)
 {
   if (renderer_) {
     // clear the window
@@ -142,7 +147,7 @@ void Display::refresh(vector<Sprite> sprites, string text)
       // Get the image index and check that it is valid
       unsigned int imageIndex = sprite.getImageIndex();
 
-      if (imageIndex >= 0 && imageIndex < images_.size()) {
+      if (imageIndex < images_.size()) {
         // Get the image for the sprite
         SDL_Texture* imageTexture = images_.at(imageIndex);
 
@@ -170,17 +175,36 @@ void Display::refresh(vector<Sprite> sprites, string text)
       }
     }
 
-    SDL_RenderPresent(renderer_);
-  }
+    // render score in top left of screen
+    if (font1_ && font2_) {
+      SDL_Color white = {255, 255, 255};
+      // construct strings
+      string labelpp = "Your Score ";
+      string separatorpp = ":";
+      // construct c-style strings
+      auto label = labelpp.c_str();
+      auto separator = separatorpp.c_str();
+      auto scoreCString = score.c_str();
+      // create Surfaces from text
+      SDL_Surface* labelSurface = TTF_RenderText_Solid(font1_, label, white);
+      SDL_Surface* separatorSurface = TTF_RenderText_Solid(font2_, separator, white);
+      SDL_Surface* scoreSurface = TTF_RenderText_Solid(font1_, scoreCString, white);
+      // create actual texture from surface
+      SDL_Texture* labelTexture = SDL_CreateTextureFromSurface(renderer_, labelSurface);
+      SDL_Texture* separatorTexture = SDL_CreateTextureFromSurface(renderer_, separatorSurface);
+      SDL_Texture* scoreTexture = SDL_CreateTextureFromSurface(renderer_, scoreSurface);
+      // create rectangles in top left to hold text
+      SDL_Rect labelRect = {0, 0, 250, 32};
+      SDL_Rect separatorRect = {250, 0, 8, 32};
+      SDL_Rect scoreRect = {258, 0, 30, 32};
+      // add textures to renderer
+      SDL_RenderCopy(renderer_, labelTexture, nullptr, &labelRect);
+      SDL_RenderCopy(renderer_, separatorTexture, nullptr, &separatorRect);
+      SDL_RenderCopy(renderer_, scoreTexture, nullptr, &scoreRect);
+      //SDL_QueryTexture(solidTexture, NULL, NULL, &textRect.w, &textRect.h);
+    }
 
-  if (font_) {
-    SDL_Color textColor = {0, 0, 0};
-    auto textAsCharArray = text.c_str();
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font_, textAsCharArray, textColor);
-    SDL_Rect textRect = { 400, 700, 400, 200 };
-    SDL_Texture* solidTexture = SDL_CreateTextureFromSurface(renderer_, textSurface);
-    // SDL_FreeSurface(textSurface);
-    SDL_QueryTexture(solidTexture, NULL, NULL, &textRect.w, &textRect.h);
+    SDL_RenderPresent(renderer_);
   }
 }
 
