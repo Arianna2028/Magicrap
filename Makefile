@@ -11,10 +11,10 @@ COMPILER_FLAGS = -w -std=c++11
 LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 
 # Name of the executable
-OBJ_NAME = main
+OBJ_NAME = Magicrap
 
 all: $(OBJS)
 	g++ $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
 clean:
-	rm -f main
+	rm -f Magicrap
