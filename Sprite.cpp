@@ -9,8 +9,8 @@
 using namespace std;
 using namespace project;
 
-Sprite::Sprite(SpriteType type, int width, int height, double startX,
-	double startY, int idx) : type_(type), width_(width), height_(height),
+Sprite::Sprite(int width, int height, double startX,
+	double startY, int idx) : width_(width), height_(height),
 	cx_(startX), cy_(startY), imageIndex_(idx) {}
 
 int Sprite::getXCoordinate() const noexcept
@@ -40,8 +40,8 @@ int Sprite::getImageIndex() const noexcept
 
 bool Sprite::hits(const Sprite& other) const noexcept
 {
-	return (abs(cx_ - other.cx_) * 2 < (width_ + other.width_)) &&
-		(abs(cy_ - other.cy_) * 2 < (height_ + other.height_));
+	return (abs(cx_ - other.cx_) * 3 < (width_ + other.width_)) &&
+		(abs(cy_ - other.cy_) * 2.5 < (height_ + other.height_));
 }
 
 bool Sprite::getDirection() const noexcept
@@ -66,6 +66,26 @@ void Sprite::setVerticalVelocity(double vv) noexcept
 
 void Sprite::evolve() noexcept
 {
-	cx_ += hv_;
+	bool checkRightEdge = cx_ + (width_ / 2) <= 800;
+	bool checkLeftEdge = cx_ - (width_ / 2) >= 0;
+
+	if (checkLeftEdge && checkRightEdge) {
+		cx_ += hv_;
+	} else if (!checkLeftEdge) {
+		cx_++;
+	} else { // !checkRightEdge
+		cx_--;
+	}
+
 	cy_ -= vv_;
+}
+
+double Sprite::getVerticalVelocity() const noexcept
+{
+  return vv_;
+}
+
+void Sprite::setYCoordinate(double yy) noexcept
+{
+	cy_ = yy;
 }
