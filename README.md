@@ -1,10 +1,11 @@
 Magicrap: A Platforming Game
+Authors: Simon Kay, Arianna Tang
 
 How to Build:
 Building requires the additional libsdl2-image-dev and libsdl2-ttf-dev
 packages. To install these, simply type the following into the terminal:
 
-sudo apt-get install libsdl2-image-dev libsdl2-ttf-dev
+sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev
 
 How to Play:
 Navigate the Koffing to the door at the top while avoiding the Magikarps and
