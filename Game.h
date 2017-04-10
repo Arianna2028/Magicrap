@@ -101,6 +101,11 @@ private:
    * @return true if the player sprite collides with a ladder
    */
   bool playerAtLadder() const noexcept;
+
+  /**
+   * Spawns an amount of enemies randomly distributed around the game
+   */
+  void spawnEnemies() noexcept;
 };
 
 }

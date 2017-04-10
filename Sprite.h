@@ -96,6 +96,11 @@ public:
    */
   void setYCoordinate(/** New y coord */ double yy) noexcept;
 
+  /**
+   * Switches direction of horizontal velocity.
+   */
+  void switchDir() const noexcept;
+
 private:
   const int width_;  // width in pixels
   const int height_;  // height in pixels

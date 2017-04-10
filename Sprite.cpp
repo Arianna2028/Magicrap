@@ -89,3 +89,8 @@ void Sprite::setYCoordinate(double yy) noexcept
 {
 	cy_ = yy;
 }
+
+void Sprite::switchDir const noexcept  {
+    hv_ = -hv_;
+    direction_ = !direction_;
+}
